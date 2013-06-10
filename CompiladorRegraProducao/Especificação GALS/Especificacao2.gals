@@ -1,0 +1,71 @@
+#Options
+GenerateScanner = true
+GenerateParser = true
+Language = Java
+ScannerName = Lexico
+ParserName = Sintatico
+SemanticName = Semantico
+Package = compiler
+ScannerCaseSensitive = true
+ScannerTable = Full
+Input = String
+Parser = LL
+#RegularDefinitions
+caracter: [a-zA-Z]
+digito: [0-9]
+digito2: [1-9]
+int: 0 | ({digito2}( {digito}{digito}{digito}{digito} | {digito}{digito}{digito} | {digito}{digito} | {digito})? )
+linha: [^ \n]
+Comentario: \\\92({linha}*) \n?
+Ignore: [\s\t\n\r]* 
+entreaspas : \34 [^ \34 ]* \34
+#Tokens
+Inteiro: {digito}{digito}{digito}
+identificador: ({caracter} | {digito} | _ ({caracter} | {digito}) + )*
+
+:  {Ignore}
+
+REGRA = identificador: "REGRA"
+ALIAS: {entreaspas}
+
+
+fim = identificador: "fim"
+e = identificador: "e"
+se = identificador: "se"
+ou = identificador: "ou"	
+programa = identificador: "programa"
+entao = identificador: "entao"
+CNF = identificador: "CNF"
+COMO = identificador: "como" 
+
+
+
+"%"
+"="
+"<>"
+";"
+#NonTerminals
+<PROGRAMA>
+<EXPRESSAO>
+<EXPRESSAO2>
+<LISTADEREGRAS>
+<LISTADEREGRAS2>
+<REGRA>
+<COND>
+<VALOR>
+<RESULTADO>
+<CNF>
+<condicional>
+<COMO>
+#Grammar
+<PROGRAMA>::= #1programa identificador#2";" <LISTADEREGRAS>fim identificador#3;
+<LISTADEREGRAS> ::= <REGRA><LISTADEREGRAS2>;
+<LISTADEREGRAS2> ::= <LISTADEREGRAS>|î;
+<REGRA>::= REGRA#4 identificador#5 se <EXPRESSAO> entao#6 <RESULTADO> <CNF>;
+<EXPRESSAO>::= <VALOR> <EXPRESSAO2>;
+<EXPRESSAO2>::= <COND><EXPRESSAO>|î;
+<COND> ::= e #7| ou#8;
+<condicional>::= "="|"<>";
+<VALOR> ::= identificador#9 <condicional> identificador#10;
+<RESULTADO> ::= identificador#11 "=" identificador#12;
+<CNF> ::= CNF Inteiro #13 "%" | î ;

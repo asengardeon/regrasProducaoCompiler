@@ -1,0 +1,12 @@
+programa teste;
+REGRA 1
+se Experiencia = experiente
+e Escolaridade = superior
+e Diagnostico = boa
+entao Desempenho = otimo
+REGRA 2
+se Experiencia = regular
+e Escolaridade = fundamental
+e Diagnostico = regular
+entao Desempenho = baixo
+fim teste

@@ -1,0 +1,10 @@
+<PROGRAMA>:= programa identificador";" <LISTADEREGRAS>end identificador#2 ".";
+<LISTADEREGRAS> := <REGRA><LISTADEREGRAS2>
+<LISTADEREGRAS2> := ";"<LISTADEREGRAS>|î
+<REGRA>:= REGRA identificador SE <EXPRESSAO> ENTAO <RESULTADO> <CNF>
+<EXPRESSAO>:= <VALOR> <EXPRESSAO2>
+<EXPRESSAO2>:= <COND><EXPRESSAO>|î
+<COND> := E | OU
+<VALOR> := literal = literal
+<RESULTADO> := literal = literal
+<CNF> := CNF = digito % | î 
